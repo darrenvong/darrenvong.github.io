@@ -1,0 +1,85 @@
+@font-face {
+    font-family: Roboto;
+    src: url('../fonts/Roboto-Regular-webfont.woff');
+}
+
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+a {
+    color: black;
+}
+
+p {
+    margin: 0.5em 0;
+}
+
+.twitter:hover svg,
+.twitter:focus svg {
+    fill: #1da1f2;
+}
+
+.linkedin:hover svg,
+.linkedin:focus svg {
+    fill: #0077b5;
+}
+
+.github:hover svg,
+.github:hover svg {
+    fill: rgba(0, 0, 0, 0.7);
+}
+
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    padding: 10px;
+}
+
+h1,
+p {
+    text-align: center;
+}
+
+.social-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.social-container svg {
+    height: 25px;
+    width: 25px;
+    margin: 0 25px;
+}
+
+@media screen and (min-width: 768px) {
+    h1 {
+        font-size: 5vw;
+    }
+
+    p {
+        font-size: 2vw;
+    }
+
+    .social-container {
+        margin-top: 40px;
+    }
+
+    .social-container svg {
+        height: 5vw;
+        width: 5vw;
+        margin: 0 2.5vw;
+    }
+}
