@@ -32,8 +32,8 @@ p {
 }
 
 .github:hover svg,
-.github:hover svg {
-    fill: rgba(0, 0, 0, 0.7);
+.github:focus svg {
+    fill: rgba(0, 0, 0, 0.6);
 }
 
 
