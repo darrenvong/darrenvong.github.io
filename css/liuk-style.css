@@ -1,0 +1,173 @@
+/* Shared stylesheet for all Life in the UK lessons & references.
+   Tufte-inspired: readable serif body, generous margins, prints cleanly. */
+
+:root {
+  --ink: #1a1a1a;
+  --muted: #6b6b6b;
+  --rule: #d8d4cc;
+  --bg: #fffef9;
+  --accent: #7a1f2b;       /* deep British red */
+  --accent-soft: #f3e7e9;
+  --good: #1f6b3a;
+  --good-soft: #e6f2ea;
+  --bad: #9a2b2b;
+  --bad-soft: #f7e8e8;
+  --maxw: 42rem;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 3rem 1.5rem 6rem;
+  font-size: 1.0625rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+.kicker {
+  font-family: -apple-system, system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+h1 { font-size: 1.9rem; line-height: 1.15; margin: 0 0 0.5rem; }
+h2 { font-size: 1.3rem; margin: 2.4rem 0 0.6rem; border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; }
+h3 { font-size: 1.05rem; margin: 1.6rem 0 0.4rem; }
+
+.lede { font-size: 1.15rem; color: var(--muted); font-style: italic; margin: 0 0 1.5rem; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+blockquote, .callout {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  margin: 1.4rem 0;
+  padding: 0.8rem 1.1rem;
+  border-radius: 0 4px 4px 0;
+}
+.callout p { margin: 0.3rem 0; }
+.callout strong { color: var(--accent); }
+
+cite, .cite { font-size: 0.85rem; color: var(--muted); font-style: normal; }
+sup a { font-size: 0.7em; text-decoration: none; }
+
+/* Timeline for dates */
+.timeline { list-style: none; padding: 0; margin: 1.4rem 0; }
+.timeline li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--rule); }
+.timeline .yr { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.timeline .ev { margin: 0; }
+/* People variant: wider left column for full names (which can wrap to 2 lines) */
+.timeline.people li { grid-template-columns: 9.5rem 1fr; }
+.timeline.people .yr { font-variant-numeric: normal; line-height: 1.25; }
+
+/* Matrix table — for "quartet" facts (one value per nation, etc.) */
+.matrix { width: 100%; border-collapse: collapse; margin: 1.4rem 0; font-size: 0.97rem; }
+.matrix caption { caption-side: top; text-align: left; color: var(--muted); font-style: italic; font-size: 0.9rem; margin-bottom: 0.5rem; }
+.matrix th, .matrix td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.matrix thead th { font-family: -apple-system, system-ui, sans-serif; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); border-bottom: 2px solid var(--rule); }
+.matrix tbody th { font-weight: 700; color: var(--ink); white-space: nowrap; }
+.matrix tbody tr:hover { background: #faf8f2; }
+.matrix-wrap { overflow-x: auto; }
+
+/* Spaced-review rotation tracker */
+.rotation .status { font-family: -apple-system, system-ui, sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.04em; }
+.rotation tr.due th, .rotation tr.due td { background: #fbe9e7; }
+.rotation tr.due .status { color: #b3261e; }
+.rotation tr.ok .status { color: var(--muted); }
+.rotation .last { color: var(--muted); font-size: 0.9rem; white-space: nowrap; }
+.rotation button.done { font-family: -apple-system, system-ui, sans-serif; font-size: 0.8rem; padding: 0.3rem 0.6rem; border: 1px solid var(--rule); border-radius: 4px; background: #fff; cursor: pointer; white-space: nowrap; }
+.rotation button.done:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* Footer nav */
+.lesson-nav { margin-top: 3rem; padding-top: 1.2rem; border-top: 2px solid var(--rule); font-family: -apple-system, system-ui, sans-serif; font-size: 0.9rem; }
+.lesson-nav a { display: inline-block; margin-right: 1.2rem; }
+.lesson-nav .nav-switch { display: block; margin-top: 0.7rem; padding-top: 0.7rem; border-top: 1px dashed var(--rule); font-size: 0.85rem; color: var(--muted); }
+.lesson-nav .nav-switch a { margin-right: 0; }
+
+.ask-teacher {
+  font-family: -apple-system, system-ui, sans-serif;
+  font-size: 0.92rem;
+  background: #f4f1e8;
+  border: 1px dashed var(--muted);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  margin: 2rem 0;
+}
+.ask-teacher strong { display: block; margin-bottom: 0.2rem; }
+
+/* ---- Quiz widget (assets/quiz.js) ---- */
+.quiz-interactive {
+  font-family: -apple-system, system-ui, sans-serif;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.2rem 1.3rem;
+  margin: 1.8rem 0;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.quiz-head { display: flex; justify-content: space-between; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.6rem; }
+.quiz-score { font-weight: 700; color: var(--accent); }
+.quiz-q { font-size: 1.05rem; font-weight: 600; margin: 0 0 0.9rem; line-height: 1.4; }
+.quiz-hint { font-weight: 400; color: var(--muted); font-size: 0.85rem; }
+.quiz-opt { display: flex; align-items: center; gap: 0.6rem; padding: 0.55rem 0.7rem; border: 1px solid var(--rule); border-radius: 6px; margin-bottom: 0.45rem; cursor: pointer; transition: background 0.12s; }
+.quiz-opt:hover { background: #faf8f2; }
+.quiz-opt input { accent-color: var(--accent); width: 1.05rem; height: 1.05rem; }
+.opt-correct { background: var(--good-soft); border-color: var(--good); }
+.opt-wrong { background: var(--bad-soft); border-color: var(--bad); }
+.quiz-feedback { margin: 0.9rem 0; padding: 0.7rem 0.9rem; border-radius: 6px; font-size: 0.95rem; }
+.fb-good { background: var(--good-soft); color: var(--good); }
+.fb-bad { background: var(--bad-soft); color: var(--bad); }
+.quiz-feedback strong { display: inline-block; margin-right: 0.3rem; }
+.quiz-btn { font: inherit; font-weight: 600; background: var(--accent); color: #fff; border: 0; border-radius: 6px; padding: 0.55rem 1.1rem; cursor: pointer; margin-top: 0.4rem; }
+.quiz-btn:hover { background: #5f1822; }
+.quiz-result { text-align: center; padding: 1.2rem; border-radius: 8px; }
+.quiz-result h3 { margin: 0 0 0.5rem; font-size: 1.6rem; border: 0; }
+
+/* End-of-quiz review of missed questions (mock-style) */
+.quiz-review { margin-top: 1.3rem; text-align: left; }
+.review-head { font-family: -apple-system, system-ui, sans-serif; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 0 0 0.7rem; }
+.review-item { border: 1px solid var(--rule); border-left: 3px solid var(--bad); border-radius: 0 6px 6px 0; padding: 0.7rem 0.9rem; margin-bottom: 0.7rem; background: #fff; }
+.review-q { font-weight: 600; margin: 0 0 0.5rem; }
+.review-line { margin: 0.15rem 0; font-size: 0.92rem; }
+.review-line span { display: inline-block; min-width: 6.5rem; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.review-wrong { color: var(--bad); }
+.review-correct { color: var(--good); }
+.review-explain { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ink); }
+.review-clean { color: var(--good); font-weight: 600; margin: 0; }
+
+/* ---- Editable tracker (assets/tracker.js) ---- */
+.checklist { list-style: none; padding: 0; margin: 1rem 0; }
+.checklist .check { cursor: pointer; padding: 0.3rem 0; user-select: none; }
+.check .box { display: inline-block; width: 1.3rem; }
+.check .box::before { content: "\2610"; }                                   /* ☐ */
+.check.checked .box::before { content: "\2611"; color: var(--good); }       /* ☑ */
+.check.checked .label { text-decoration: line-through; color: var(--muted); }
+input.save { font: inherit; width: 100%; border: 0; border-bottom: 1px solid var(--rule); background: transparent; padding: 0.25rem 0.1rem; color: var(--ink); }
+input.save:focus { outline: none; border-bottom-color: var(--accent); background: #fffdf5; }
+textarea.save { font: inherit; width: 100%; min-height: 5rem; border: 1px solid var(--rule); border-radius: 6px; padding: 0.6rem; background: #fff; color: var(--ink); resize: vertical; }
+textarea.save:focus { outline: none; border-color: var(--accent); }
+.tracker-reset { font-family: -apple-system, system-ui, sans-serif; font-size: 0.8rem; background: none; border: 1px solid var(--rule); border-radius: 6px; padding: 0.35rem 0.8rem; cursor: pointer; color: var(--muted); }
+.tracker-reset:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---- Recall mode (assets/recall.js) ---- */
+.recall-toggle { font-family: -apple-system, system-ui, sans-serif; font-size: 0.85rem; font-weight: 600; background: var(--accent); color: #fff; border: 0; border-radius: 6px; padding: 0.5rem 1rem; cursor: pointer; margin: 0.4rem 0 1.2rem; }
+.recall-toggle.active { background: var(--good); }
+.redacted { cursor: pointer; }
+.redacted-ph { display: inline-block; min-width: 7rem; padding: 0.05rem 0.6rem; border-radius: 4px; background: #e7e3d9; color: var(--muted); font-family: -apple-system, system-ui, sans-serif; font-size: 0.78rem; font-style: normal; letter-spacing: 0.03em; }
+.timeline .yr .redacted-ph { min-width: 4rem; }
+.revealed { background: var(--good-soft); border-radius: 4px; }
+
+@media print {
+  body { font-size: 11pt; max-width: 100%; }
+  .quiz-interactive, .ask-teacher, .review-item { break-inside: avoid; }
+  a { color: var(--ink); text-decoration: none; }
+}
