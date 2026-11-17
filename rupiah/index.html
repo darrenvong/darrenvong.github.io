@@ -51,6 +51,15 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; bor
 .hint { font-size: 13px; color: var(--muted); margin: 0; }
 .hint code { font-family: var(--mono); color: var(--fg); }
 .err { color: var(--warn); }
+.pair { display: grid; gap: 4px; margin-top: -4px; }
+.pair-label { font-size: 12px; color: var(--muted); }
+.pair-inputs { display: grid; grid-template-columns: 1fr auto 1fr; gap: 8px; align-items: center; }
+.affix { display: flex; align-items: center; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.affix:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
+.affix span { font: 500 14px var(--mono); color: var(--muted); padding-left: 10px; text-transform: none; letter-spacing: 0; }
+.affix input { border: 0; padding-left: 6px; font-size: 16px; min-width: 0; }
+.affix input:focus-visible { outline: 0; }
+.pair-eq { color: var(--muted); font-family: var(--mono); }
 
 :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 body { margin: 0; }
@@ -70,6 +79,14 @@ body { margin: 0; }
       <input id="mid" inputmode="decimal" value="24072"></label>
     <label for="chase">Chase / Mastercard rate <small>(Rp per £)</small>
       <input id="chase" inputmode="decimal" value="23900"></label>
+    <div class="pair" role="group" aria-labelledby="pair-label">
+      <span class="pair-label" id="pair-label">Or enter what the Mastercard / Chase converter shows, and the rate above is worked out for you</span>
+      <div class="pair-inputs">
+        <label class="affix" aria-label="Rupiah amount from converter"><span>Rp</span><input id="mcIdr" inputmode="numeric" placeholder="2000000"></label>
+        <span class="pair-eq">=</span>
+        <label class="affix" aria-label="Pound amount from converter"><span>£</span><input id="mcGbp" inputmode="decimal" placeholder="83.40"></label>
+      </div>
+    </div>
     <label for="amt">Amount <small>(Rp)</small>
       <input id="amt" inputmode="numeric" value="3000000"></label>
   </div>
@@ -84,8 +101,15 @@ body { margin: 0; }
 <script>
 const $ = id => document.getElementById(id);
 const num = v => parseFloat(String(v).replace(/[^\d.]/g, ''));
-const ids = ['mid', 'chase', 'amt'];
+const ids = ['mid', 'chase', 'amt', 'mcIdr', 'mcGbp'];
 try { ids.forEach(k => { const v = localStorage.getItem('rrc-' + k); if (v) $(k).value = v; }); } catch (e) {}
+
+// Converter pair (Rp X = £Y) sets the Chase rate; the rate field stays directly editable.
+function fromPair() {
+  const idr = num($('mcIdr').value), gbpAmt = num($('mcGbp').value);
+  if (idr > 0 && gbpAmt > 0) $('chase').value = String(Math.round(idr / gbpAmt * 100) / 100);
+  render();
+}
 
 function gbp(x) { return '£' + x.toFixed(2); }
 
@@ -117,7 +141,8 @@ function render() {
   const indoBreak = mid * 1.0015 / 1.007;
   $('hint').innerHTML = `Chase cash beats the T212 top-up above <code>${Math.round(breakeven).toLocaleString('en-GB')}</code>. An Indomaret top-up beats it above <code>${Math.round(indoBreak).toLocaleString('en-GB')}</code>.`;
 }
-ids.forEach(k => $(k).addEventListener('input', render));
+['mid', 'chase', 'amt'].forEach(k => $(k).addEventListener('input', render));
+['mcIdr', 'mcGbp'].forEach(k => $(k).addEventListener('input', fromPair));
 render();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
 </script>
