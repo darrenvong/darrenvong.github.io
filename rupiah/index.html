@@ -45,6 +45,9 @@ input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; bor
 .row .pct, .row .gbp { font-family: var(--mono); font-size: 14px; text-align: right; }
 .row .pct { color: var(--muted); min-width: 56px; }
 .row.best .name, .row.best .gbp { color: var(--accent); }
+.row.ref { grid-template-columns: 1fr auto auto; border-bottom-style: dashed; }
+.row.ref .name { font-weight: 400; color: var(--muted); }
+.row.ref .name small { display: block; font-size: 12px; }
 .hint { font-size: 13px; color: var(--muted); margin: 0; }
 .hint code { font-family: var(--mono); color: var(--fg); }
 .err { color: var(--warn); }
@@ -108,7 +111,8 @@ function render() {
   const diff = next.cost - best.cost;
   $('verdict').innerHTML = `<b>${best.name} wins</b><span>Saves ${gbp(diff)} vs ${next.name} on this amount${diff < 0.25 ? ' — pick whichever is convenient' : ''}</span><span style="display:block;margin-top:6px">Need GoPay balance? <b style="display:inline;font-size:inherit">${gp[0].name}</b>, saves ${gbp(gpDiff)}</span>`;
   $('rows').innerHTML = opts.map((o, i) =>
-    `<div class="row${i === 0 ? ' best' : ''}"><span class="name">${o.name}</span><span class="pct">${o.pct.toFixed(2)}%</span><span class="gbp">${gbp(o.cost)}</span></div>`).join('');
+    `<div class="row${i === 0 ? ' best' : ''}"><span class="name">${o.name}</span><span class="pct">${o.pct.toFixed(2)}%</span><span class="gbp">${gbp(o.cost)}</span></div>`).join('')
+    + `<div class="row ref"><span class="name">T212 cash, within free limit<small>For reference: not ranked</small></span><span class="pct">0.00%</span><span class="gbp">${gbp(base)}</span></div>`;
   const breakeven = mid / 1.007;
   const indoBreak = mid * 1.0015 / 1.007;
   $('hint').innerHTML = `Chase cash beats the T212 top-up above <code>${Math.round(breakeven).toLocaleString('en-GB')}</code>. An Indomaret top-up beats it above <code>${Math.round(indoBreak).toLocaleString('en-GB')}</code>.`;
